@@ -101,14 +101,14 @@ h4 {
 }
 
 .block-button {
-    margin-bottom: 3rem;
-    margin-top: 2rem;
+    margin: 2rem auto 3rem auto;
     font-size: 1.7rem;
     cursor: pointer;
     text-transform: uppercase;
     background-color: #bdc3ed;
     font-weight: 600;
     padding: 1.1em 1.44em;
+    max-width: fit-content;
 }
 
 .block-button a {
@@ -142,9 +142,7 @@ footer p {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
     font-weight: 700;
     font-size: 1.8rem;
-    padding: 4rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding: 2rem 4rem;
 }
 
 footer p a {
@@ -180,8 +178,7 @@ footer p span a:hover {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
+    margin: 1.5em 0;
 }
 
 figcaption {
