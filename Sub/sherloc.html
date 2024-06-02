@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+            <li><a href="../gallery.html">Gallery</a></li>
+            <li><a href="../index.html">Home</a></li>
+        </ul>
+
+        <h1 id="top">SHERLOC Mineral Detection</h1>
+    </header> 
+
+    <div class="inner">
+
+    <div class="toc">
+        <details>
+            <summary><span>Sections</span></summary>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#background">Background</a></li>
+                <li><a href="#automation">Automation</a></li>
+                <li><a href="#packaging">Packaging</a></li>
+                <li><a href="#reporting">Reporting</a></li>
+            </ul>
+        </details>
+    </div>
+    
+    <h5 id="overview">Overview</h5>
+    <p>
+    During my summer research with the Bosak Lab, I was tasked with improving the speed at which Raman spectroscopy data could be processed. Since the Perseverance rover's time is valuable, anything to decrease downtime is considered worthwhile. If a new sample is taken, it must be processed so an informed decision can be made on whether it should be stored, more should be taken, or the rover should move on. The full project is documented on <a href="https://github.com/TrevorJohst/SHERLOC-Mineral-Detection">GitHub</a>.
+    </p>
+
+    <h5 id="background">Background</h5>
+    <p>
+    Perseverance landed on Mars in 2021 with the objective of collecting and storing samples for a future return mission. To determine which samples are worth keeping, a Raman spectroscopy instrument (SHERLOC) was included on the rover. This allows scientists on Earth to scan a rock sample with a laser and determine its composition based on how the light is scattered. In order to make this possible on a mobile rover, however, sacrifices had to be made elsewhere. Results returned from SHERLOC are low in fidelity and high in noise compared to their Earth counterparts.
+    </p>
+
+    <div class="images">    
+    <figure>
+        <img src="../Images/Sub/Sherloc/perseverance-Photoroom.png-Photoroom.jpg" alt="" width="1280" height="622" />
+        <figcaption>The Perseverance rover (SHERLOC is on the end of the movable arm)</figcaption>
+    </figure>   
+    <figure>
+        <img src="../Images/Sub/Sherloc/noise.jpg" alt="" width="838" height="622" />
+        <figcaption>Raw data from SHERLOC, this region should be entirely flat</figcaption>
+    </figure>   
+    </div>
+    
+    <h5 id="automation">Automation</h5>
+    <p>
+    SHERLOC generates too much data for rapid manual processing, but insufficient for training machine learning algorithms. This problem is only worsened by inconsistent noise that seems to be changing as the instrument ages. While a future with more data may enable such approaches, at the time development was focused on algorithmic automation over machine learning. 
+    </p>
+
+    <p>
+    If one wishes to generate consistent metrics that can be used to compare detections, all of the data must be comparable. In Raman spectroscopy, background signals will create an inconsistent offset from true zero. Removing this offset is called baselining, and is often the most time consuming aspect of processing data. This was automated using the <a href="https://pypi.org/project/pybaselines/" target="_blank">pybaselines</a> library, but the aforementioned inconsistency in noise means settings must often be tweaked. 
+    </p>
+
+    <div class="images">    
+    <figure>
+        <img src="../Images/Sub/Sherloc/good_baseline.jpg" alt="" width="852" height="622" />
+        <figcaption>A proper baseline fit</figcaption>
+    </figure>   
+    <figure>
+        <img src="../Images/Sub/Sherloc/bad_baseline.jpg" alt="" width="830" height="622" />
+        <figcaption>A poor baseline overfitting to features in the signal</figcaption>
+    </figure>   
+    </div>
+
+    <p>    
+    With the now baselined data, mineral detections can be identified as normal distributions at specific Ramanshifts. We can automate a peakfit around where we expect these peaks to occur for various minerals (carbonates tend to appear around 1085 cm⁻¹ for example). Features of these peakfits, such as their location, width, and height, can tell geologists more about their composition. A lot of work was put into deciding initial settings to maximize detections and minimize false negatives. The exact metrics to quantify detections were also considered to ensure they were representative and repeatable. 
+    </p>
+
+    <div class="images">    
+    <figure>
+        <img src="../Images/Sub/Sherloc/lab_results.jpg" alt="" width="784" height="622" />
+        <figcaption>Lab detections of various carbonates from <a href="http://dx.doi.org/10.1039/C7CC01420A" target="_blank">Donnelly et al.</a></figcaption>
+    </figure>   
+    <figure>
+        <img src="../Images/Sub/Sherloc/sherloc_detection.jpg" alt="" width="849" height="622"  />
+        <figcaption>A carbonate detection from SHERLOC</figcaption>
+    </figure>   
+    </div>
+    
+    <h5 id="packaging">Packaging</h5>
+    <p>
+    All of the features of the GUI are described in greater detail on the <a href="https://github.com/TrevorJohst/SHERLOC-Mineral-Detection">GitHub</a>, but it in essence allows a user to import scans and process them semi-autonomously. Any new scan can be imported and processed either automatically, semi-automatically, or manually. For the autonomous options, cutoffs for metrics are set by the user to determine the detection threshold. Both semi-automatic and manual allow the user to then adjust any step of the detection process to get better metrics or adapt to unusual noise.
+    </p>
+
+    <div class="images">    
+    <figure>
+        <img src="../Images/Sub/Sherloc/gui.png" alt="" width="1366" height="693" class="rounded-image" />
+        <figcaption>Menu of the GUI while processing a SHERLOC scan</figcaption>
+    </figure>  
+    </div>
+    
+    <h5 id="reporting">Reporting</h5>
+    <p>
+    Near the end of the summer, I compiled information from the research into a presentation to get feedback on areas of improvement. This original presentation was mostly technical and was only shown to the Paleomagnetism and Bosak Labs. Shortly after this, there was a student research panel that my mentor recommended I participate in. I adapted the slides to better fit a general audience and presented the project there. The slides that were presented can be found below.
+    </p>
+
+    <div class="images">
+        <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRD_Z3uEk9k6a9_tDJ3EgrjhnY45dEyGJK_xLIITHlK1b5HjBFr3CajLjYU2GhWUzBJLeU6dAWTp-nU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="1440" height="839" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    </div>
+
+    </div>    
+        
+    <footer>
+        <p>
+        <a href="mailto:trejohst@mit.edu">Contact</a>
+        <span><a href="#top">To the top ↑</a></span>
+        </p>
+    </footer>
+
+</body>
+
+</html>
