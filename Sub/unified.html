@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+            <li><a href="../gallery.html">Gallery</a></li>
+            <li><a href="../index.html">Home</a></li>
+        </ul>
+
+        <h1 id="top">SHERLOC Mineral Detection</h1>
+    </header> 
+
+    <div class="inner">
+
+    <div class="toc">
+        <details>
+            <summary><span>Sections</span></summary>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#optimization">Wing Optimization</a></li>
+                <li><a href="#body">Body Design and Construction</a></li>
+                <li><a href="#flight">Flight</a></li>
+            </ul>
+        </details>
+    </div>
+    
+    <h5 id="overview">Overview</h5>
+    <p>
+    Unified Engineering is a series of four classes that every Aero/Astro student must take at MIT. Together they cover materials/structures, signals/systems, thermodynamics, and fluid dynamics. At the end of these classes, there is a flight competition that aims to test teams on their ability to utilize all of these skills in conjunction. 
+    </p>
+
+    <p>
+    An objective function is defined for the competition, and the goal is to optimize your RC plane to maximize this objective. For our year, the objective function was m<sub> pay</sub> ⋅ Ω / b, where m<sub> pay</sub> is the payload mass, Ω is the turn rate, and b is the wingspan. This essentially meant we wanted to make a maneuverable plane that could carry a large payload for a small wingspan. 
+    </p>
+
+    <h5 id="optimization">Wing Optimization</h5>
+    <p>
+    The majority of the work for the competition went into optimizing the wing design. We were given scripts to simulate a model aircraft given some input parameters; it was our job to figure out how to maximize the objective given all of these inputs, while also balancing concerns such as the wing breaking or flow separation.
+    </p>
+
+    <p>
+    Some initial inputs we considered were taper ratio (λ) and thickness ratio (&#120591;). A lower taper ratio corresponds to a more triangular wing, with 0 being a triangle and 1 being a rectangle. The thickness ratio corresponds to how thick the airfoil is for a given cross section. We found that decreasing both of these increases our objective function, but introduces structural and manufacturing concerns (e.g. a thin wingtip might snap in flight).
+    </p>
+
+    <p>
+    Another consideration is the wing area (S) and aspect ratio (AR). Wing area is straight forward, while a higher aspect ratio corresponds to a longer and more slender wing. Increasing the wing area for a given aspect ratio initially will allow us to carry more payload, but eventually the weight of the wing will become more significant than the added lift. Meanwhile a more slender wing has less induced drag, but will bend more and also decrease our objective function.
+    </p>
+
+    <div class="images">    
+    <figure>
+        <img src="../Images/Sub/Unified/uefc_obj.jpg" alt="" width="609" height="541" />
+        <figcaption>Low thickness and taper ratios increase objective</figcaption>
+    </figure>   
+    <figure>
+        <img src="../Images/Sub/Unified/uefc_wing.jpg" alt="" width="618" height="525" />
+        <figcaption>Wing aspect ratio and area have an optimum limited by a fixed maximum bending</figcaption>
+    </figure>   
+    <figure>
+        <img src="../Images/Sub/Unified/uefc_bending.jpg" alt="" width="606" height="536" />
+        <figcaption>Higher designed lift optimizes for a wing with more bending</figcaption>
+    </figure>   
+    </div>
+    
+    <p>
+    Due to restrictions on the equipment we use to create the wings, we are limited to a taper on the leading edge, and a straight trailing edge. This means that the lift along the wing will not be constant. Additionally, we set a limit on the coefficient of lift of 0.8 to avoid wing stall. When we model the lift distribution for our wing as designed by the previous optimization, we see that some parts of the wing experience a coefficient of lift greater than 0.8. To remedy this, we can change the angle of the wing throughout and achieve a more favorable lift distribution.
+    </p>
+
+    <div class="images">    
+    <figure>
+        <img src="../Images/Sub/Unified/uefc_dist.jpg" alt="" width="647" height="540" />
+        <figcaption>The lift peaks at some locations on the wing, we want to minimize these peaks</figcaption>
+    </figure>   
+    <figure>
+        <img src="../Images/Sub/Unified/uefc_twist.jpg" alt="" width="856" height="540" />
+        <figcaption>Changing the angle distribution along the wing allows us to minimize the lift peaks and also minimize drag</figcaption>
+    </figure>   
+    </div>
+    
+    <h5 id="body">Body Design and Construction</h5>
+    <p>
+    Since the plane only serves to carry a simple payload, the body is essentially a vessel for the wing. An initial starting point was established by scaling an existing design by the plane's respective wingspans. The position of components were largely determined by their function, but the battery was placed such that the center of gravity would provide a favorable static margin. 
+    </p>
+
+    <p>
+    While the static margin determines the plane's pitch response, the spiral stability determines the roll response. With the plane's geometry and wing now designed, the only component left to impact spiral stability is dihedral. The dihedral is simply the angle of the wings with respect to the fuselage, and can be selected to ensure stable flight.
+    </p>
+
+    <p>
+    With all of the design finalized, the plane could be constructed. The wing was created from foam using a CNC foam cutter, while the rest of the plane was cut by hand from balsa wood. 
+    </p>
+
+    <div class="images">    
+    <figure>
+        <img src="../Images/Sub/Unified/uefc_3view.jpg" alt="" width="340" height="440" />
+        <figcaption>A 3-view of the final plane design</figcaption>
+    </figure>     
+    <figure>
+        <img src="../Images/Sub/Unified/20240512_213501.jpg" alt="" width="587" height="440" class="rounded-image" />
+        <figcaption>The final assembled plane</figcaption>
+    </figure>  
+    </div>
+    
+    <h5 id="flight">Flight</h5>
+    <p>
+    Finally, we all brought our planes together to MIT's indoor track and had a more adept RC plane pilot fly our planes for us. Turn rate was calculated by measuring the time to fly in a circle three times, and payload was added as small metal weights. Our plane was able to fly with the designed payload, but a mistake in manufacturing our wing meant our wingspan was longer than intended. This both decreased the maneuverability (Ω) and increased the wing span (b), which meant our objective function was lower than designed for.
+    </p>
+
+    <div class="images">    
+    <figure>
+        <img src="../Images/Sub/Unified/uefc_prof.gif" alt="" width="350" height="440" class="rounded-image"/>
+        <figcaption>Our plane almost taking out the professor</figcaption>
+    </figure>     
+    <figure>
+        <img src="../Images/Sub/Unified/uefc_fly.gif" alt="" width="774" height="440" class="rounded-image"/>
+        <figcaption>Our plane flying in a circle for the challenge</figcaption>
+    </figure>  
+    </div>
+
+    </div>    
+        
+    <footer>
+        <p>
+        <a href="mailto:trejohst@mit.edu">Contact</a>
+        <span><a href="#top">To the top ↑</a></span>
+        </p>
+    </footer>
+
+</body>
+
+</html>
