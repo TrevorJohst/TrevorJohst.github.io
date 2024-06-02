@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <ul>
+            <li><a href="classes.html">Classes</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+
+        <h1 id="top">WORMS</h1>
+    </header> 
+
+    <div class="inner">
+
+    <div class="toc">
+        <details>
+                <summary>Sections</summary>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#background">Background</a></li>
+                    <li><a href="#uib">UIB 2.0</a></li>
+                    <li><a href="#mass-robotics">Mass Robotics</a></li>
+                    <li><a href="#mars-2024">MARS 2024</a></li>
+                </ul>
+        </details>
+    </div>
+        
+    <h5 id="overview">Overview</h5>
+    <p>
+    WORMS was designed to investigate the application of modular robotics for space exploration. The project started in 2022 for <a href="https://bigidea.nianet.org/past-competition-themes/2022-forum-results/" target="_blank">NASA's BIG Idea Challenge</a> but continued development after. I joined the project in January of 2023 as apart of a planetary tech development class. After it ended, I remained on the team both through the Massachusetts Space Grant Fellowship and working voluntarily between classes. 
+    </p>
+
+    <p>
+    In the winter semester of 2023, I focused on improving the usability of our Universal Interface Block (UIB). Following that, in the spring semester of the same year, I contributed to the <a href="https://www.massrobotics.org/massrobotics-form-function-challenge-winners-announced-at-the-robotics-summit/" target="_blank">Mass Robotics Form and Function Challenge</a> by designing a drill module for our robot. Throughout the fall and winter semesters of 2024, our main focus was on preparing for the <a href="https://aeroastro.mit.edu/news-impact/mit-aeroastro-team-showcases-field-reconfigurable-robots-at-amazon-mars/" target="_blank">MARS 2024 convention</a>. This primarily entailed troubleshooting and handling miscellaneous tasks to ensure the robot's functionality.
+    </p>
+
+    <h5 id="background">Background</h5>
+    <p>
+    Before I had joined the team, a full prototype of the architecture had already been developed for the BIG Idea Challenge. The underlying premise of WORMS is to have a robot where each component can act in isolation, or join together to form more complex systems. Each worm (arm module) has its own dedicated computer, battery, and avionics, and can communicate with each other through ROS2. Additional species modules can add capabilities such as LIDAR, gripping, or walking. 
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Worms/poster.jpg" alt="" width="674" height="550" class="rounded-image" />
+        <figcaption>The most up to date poster demonstrating the WORMS architecture</figcaption>
+    </figure>
+    </div>
+    
+    <h5 id="uib">UIB 2.0</h5>
+    <p>
+    In order to fully take advantage of modular robotics, they need to be easily reconfigurable in the field. The original WORMS proposal developed an androgynous interface that allowed two parts to be connected with ease. Disconnecting these parts, however, was rather difficult and likely not possible for an astronaut with bulky gloves.
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Worms/UIB.jpg" alt="" width="511" height="400" />
+        <figcaption>The original UIB design, not pictured are the spring loaded pins</figcaption>
+    </figure>
+    </div>
+    <p>
+    To find the best solution for this, everyone on the mechanical team developed their own proposed UIB 2.0. We then compared our designs and decided on my idea of including a lever to operate the pins. After some design review we decided to make the pressure pads into a full circumference pad instead.
+    </p>
+
+    <div class="images">
+    <figure style="margin-right: 40px;">
+        <img src="../Images/Sub/Worms/Screenshot-2024-03-30-200732.png" alt="" width="324" height="400" class="rounded-image" />
+        <figcaption>Early 3D printed UIB 2.0 prototype</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Worms/20231125_145542-ezgif.com-crop.gif" alt="" width="270" height="400" class="rounded-image" />
+        <figcaption>UIB 2.0 with easy removal levers</figcaption>
+    </figure>
+    </div>
+    
+    <h5 id="mass-robotics">Mass Robotics</h5>
+    <p>
+    The Mass Robotics Form and Function competition tasked us with developing technology utilizing a number of industry partners. Each company offered some form of robotics component such as actuators, sensors, and controllers. The WORMS team divided up tasks to maximize the use of our available resources. Software focused on utilizing some sensors, while mechanical divided into two groups to develop a gripper and a drill.
+    </p>
+
+    <p>
+    To begin with development of the drill, we did some rough calculations for expected torques on various demo materials. This was used to inform our conversations with <a href="https://www.novanta.com/" target="_blank">Novanta</a>, and allowed us to select the appropriate motor for the drill. Once that was decided, the bulk of the design could be done and I developed an initial CAD prototype in SolidWorks. After speaking to the staff at our machine shop, I got feedback on how to make the design easier to manufacture and a final CAD design was produced.
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Worms/Drill_Img_2.jpg" alt="" width="384" height="400" class="rounded-image" />
+        <figcaption>Prototype CAD of drill module</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Worms/drill_img_4.jpg" alt="" width="394" height="400" class="rounded-image" />
+        <figcaption>Updated CAD to reduce machine time and cost</figcaption>
+    </figure>
+    </div>
+    
+    <p>
+    Sadly, time constraints meant we were not going to be able to machine the central portion of the housing in time. We did some comparisons of operating temperatures under load and determined that a 3D printed version of the central housing would be sufficient for a demo. Because we also had a second actuator from <a href="https://www.festo.com/us/en/" target="_blank">FESTO</a>, a colleague built an adapter for my drill design, giving it a linear degree of freedom. With all of the design done, we were then able to quickly finish assembly and write a simple script to demonstrate all capabilities. 
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Worms/extend.gif" alt="" width="346" height="400" class="rounded-image" />
+        <figcaption>Linear motion with adapter</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Worms/drill.gif" alt="" width="346" height="400" class="rounded-image" />
+        <figcaption>Drilling procedure in final assembly</figcaption>
+    </figure>
+    </div>
+    
+    <p>
+    The actual competition itself took place at the Robotics Summit in Boston, where convention goers could walk through and see every team's project. I was able to go on the first day of the convention, where I got to show off the project to different companies and judges, but sadly had an exam on the second day and was not able to make it. During the second day, however, winners were chosen and our team came in second place. 
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Worms/formandfunction.jpg" alt="" width="977" height="550" class="rounded-image" />
+        <figcaption>Some of the WORMS team along with our industry partners</figcaption>
+    </figure>
+    </div>
+    
+    <h5 id="mars-2024">MARS 2024</h5>
+    <p>
+    After Mass Robotics, we were lucky enough to be invited to the Amazon MARS conference to demonstrate our architecture. In order to get ready for the demo, we had to get the full system back online. This included a lot of troubleshooting issues with motors, making smaller mechanical changes, and moving everything over to UIB 2.0. Additionally, we wanted to implement a new gait for the robot which was more energy efficient. 
+    </p>
+
+    <p>
+    To avoid risking untested designs, my work was focused on miscellaneous tasks to ensure a smooth demonstration. After confirming the reliability of UIB 2.0, we had enough machined for the entire robot. However, due to tolerancing errors from the supplier, extensive sanding and drilling were necessary to ensure proper functionality. Additionally, we had to repair most of the motors in the robot's joints, as some were damaged due to a lack of backdriving protection. We also assembled and integrated a new central body for the robot.
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Worms/motor_test.jpg" alt="" width="380" height="380" class="rounded-image" />
+        <figcaption>Our motor test stand</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Worms/uib_pile.jpg" alt="" width="380" height="380" class="rounded-image" />
+        <figcaption>Many hours of fixing UIBs</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Worms/assembled.jpg" alt="" width="380" height="380" class="rounded-image" />
+        <figcaption>The assembled robot</figcaption>
+    </figure>
+    </div>
+    
+    <p>
+    Although we wanted to avoid creating anything new, a few things had to be made given the circumstances. The original shoes used on the robot for the BIG Idea Challenge were specifically designed for use on lunar regolith. As the demonstration would take place in a sand pit, I developed a very simple new shoe design that had stationary pads. Also with the intent of reducing complexity, we did not wish to demo a powered species module. I designed a simple bucket module that would let us demonstrate digging instead. 
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Worms/shoe.jpg" alt="" width="380" height="380" class="rounded-image" />
+        <figcaption>The new flat bottomed shoe</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Worms/digger.jpg" alt="" width="380" height="380" class="rounded-image" />
+        <figcaption>A bucket to demonstrate our species modules</figcaption>
+    </figure>
+    </div>
+    
+    <p>
+    Finally with a lot of other work from the rest of the team, we had the robot at a stage that it could be demonstrated. The full demo showcased the robot utilizing a "turtle gait" in the sand pit, and a stationary WORM digging through the sand via teleoperation. A snippet of the demo can be seen below. 
+    </p>
+
+    <div class="images">
+    <iframe class="rounded-image" width="560" height="315" src="https://www.youtube.com/embed/axzXouOqXXI?si=gwWtSt137Tx0lVQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    </div>    
+        
+    <footer>
+        <p>
+        <a href="mailto:trejohst@mit.edu">Contact</a>
+        <span><a href="#top">To the top ↑</a></span>
+        </p>
+    </footer>
+
+</body>
+
+</html>
