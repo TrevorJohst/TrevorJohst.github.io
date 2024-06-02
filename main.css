@@ -63,7 +63,7 @@ header ul li a:hover {
 
 p {
     font-size: 2.1rem;
-    font-family: "Hoefler Text", "Noto Serif", "EB Garamond", "Times New Roman", serif;
+    font-family: "Hoefler Text", "Noto Serif", "EB Garamond", "serif";
     letter-spacing: normal;
 }
 
@@ -268,16 +268,20 @@ figure img {
 
 .flex-class {
     width: 200px;
-    height: 90px;
+    height: 95px;
     text-align: center;
     background-color: #bdc3ed;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black;
     border-radius: 10px;
-    font-size: 15px;
     padding-top: 15px;
+}
+
+.flex-class p {
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 /* Summary dropdown */
