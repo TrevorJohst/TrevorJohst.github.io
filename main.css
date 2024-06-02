@@ -21,7 +21,7 @@ body {
 
 .inner {
     background-color: #1e2341;
-    padding: 4rem;
+    padding: 8rem;
 }
 
 header {
@@ -200,8 +200,9 @@ figcaption a:hover {
 }
 
 figure {
-    padding: 5px;
     display: table;
+    margin: 0;
+    height: max-content;
 }
 
 figure img {
@@ -306,6 +307,39 @@ p a {
 p a:hover {
     color:#7165e0;
     text-decoration: none;
+}
+
+.left, .right {
+    color: #7165e0;
+    text-decoration: none;
+}
+
+.left:hover, .right:hover {
+    color: #7165e0;
+}
+
+.left:hover .next, .right:hover .next {
+    color: #7165e0;
+    text-decoration: underline;
+}
+
+.left {
+    font-size: 2.4rem;
+}
+
+.right {
+    font-size: 2.4rem;
+    float: right;
+}
+
+footer hr {
+    margin-left: 4rem;
+    margin-right: 4rem;
+    color: #6d6d6d;
+}
+
+footer hr:first-child {
+    margin-top: 6rem;
 }
 
 /* Summary dropdown */
