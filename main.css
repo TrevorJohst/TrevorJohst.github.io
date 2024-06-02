@@ -290,6 +290,10 @@ h5 {
     font-size: 2.4rem;
 }
 
+p a {
+    color:#7165e0;
+}
+
 p a:hover {
     text-decoration: none;
 }
