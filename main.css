@@ -190,6 +190,15 @@ figcaption {
     padding-top: 1rem;
 }
 
+figcaption a {
+    color: #989eb8;
+}
+
+figcaption a:hover {
+    color: #989eb8;
+    text-decoration: none;
+}
+
 figure {
     padding: 5px;
     display: table;
@@ -295,6 +304,7 @@ p a {
 }
 
 p a:hover {
+    color:#7165e0;
     text-decoration: none;
 }
 

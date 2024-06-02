@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+            <li><a href="../gallery.html">Gallery</a></li>
+            <li><a href="../index.html">Home</a></li>
+        </ul>
+
+        <h1 id="top">16.405</h1>
+    </header> 
+
+    <div class="inner">
+
+    <div class="toc">
+        <details>
+                <summary><span>Sections</span></summary>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#wall">Wall Following</a></li>
+                    <li><a href="#localization">Localization</a></li>
+                </ul>
+        </details>
+    </div>
+        
+    <h5 id="overview">Overview</h5>
+    <p>
+    Throughout 16.405 you work with a team to implement and test all of the vital algorithms for an autonomous vehicle to operate. Because this class is such a large time commitment over an entire semester, it is not possible for me to even talk about everything I worked on, let alone the full team. Our team's <a href="https://rss2024-16.github.io/website/labs/" target=_blank>portfolio page</a> has all of our briefing slides and reports for each portion of the class, which go into more detail than I could cover here. Additionally, all of our code is hosted on our <a href="https://github.com/rss2024-16" target=_blank>GitHub</a>.
+    </p>
+
+    <p>
+    This page will talk about some of the work that I found most interesting from the class. I am choosing to only talk about the theory, as actual implementation was often many hours of rather tedious debugging and testing. We were provided with a simulator for our cars, so most code was tested in simulation and later implemented in real life to varying degrees of success. 
+    </p>
+
+    <h5 id="wall">Wall Following</h5>
+    <p>
+    The very first lab on the actual robot was meant to primarily get us used to working on the bot. Our goal was to implement a wall follower that we had already designed in simulation for the previous lab. At a high level, the wall follower must take in nothing more than LiDAR data and tell the robot how to steer such that it stays a set distance from the wall. 
+    </p>   
+    
+    <p>
+    In practice, this was accomplished by looking at a slice of the LiDAR data on a given side, and fitting a line to it using the random sample consensus (RANSAC) algorithm. RANSAC functions by iteratively fitting a line to a random subset of the points to exclude any noise from the fit. This line then represents our estimate for a wall, which can be projected a set distance away to represent the path we wish to follow. We then are able to use pure pursuit which can calculate the steering angle required to intercept a point on a path a set distance away. 
+    </p> 
+
+    <div class="images">
+    <figure style="margin-right: 40px;">
+        <img src="../Images/Sub/16-405/Screenshot-2024-05-27-124355.png" alt="" width="445" height="345" class="rounded-image" />
+        <figcaption>Pure pursuit operating in simulation</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/16-405/pure_pursuit.jpg" alt="" width="427" height="345"/>
+        <figcaption>The theory behind pure pursuit; from Prof. Jon How</figcaption>
+    </figure>
+    </div>
+    
+    <p>
+    This all works well if your wall is straight or gently curved, but sharp corners prove to be problems. Some logic can be implemented to help turn corners, but we found this often had edge cases where it would still fail. Towards the end of the lab I started to look into a different solution that would use all of the LiDAR data and segment it into different wall sections. I implemented an algorithm inspired by <a href="doi.org/10.1109/ICPR.2000.905371">Borges and Aldon</a>, which would cluster the points into sections and recombine them using RANSAC. We did not end up returning to wall following later in the class, but implementing this algorithm was by far my favorite part of the lab. 
+    </p> 
+    
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/16-405/cluster.gif" alt="" width="424" height="418">
+        <figcaption>Fuzzy clustering segments points which are recombined into walls</figcaption>
+    </figure>
+    </div>
+    
+    <h5 id="localization">Localization</h5>
+    <p>
+    Another lab that was very enjoyable was the localization lab. We were given a map of the basement where our lab was located, and tasked with implementing Monte Carlo localization (MCL) so the robot could figure out where it was on the map. Like other Monte Carlo methods, MCL uses random sampling to solve an issue that initially seems intractable. It boils down to guessing many locations for the robot, and picking the most probable one. 
+    </p> 
+
+    <p>
+    In practice, this is implemented as an update (motion) step and a culling (sensor) step. The update step takes the best guess from the robot's onboard inertial measurement unit (IMU) as to how it moved, and adds in some noise to account for inaccuracies. The culling step uses sensors, in our case LiDAR, to determine how likely every possible position is. It can then choose the most likely positions to "survive," and average them to give an estimate as to the robot's location.
+    </p> 
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/16-405/motion_model.jpg" alt="" width="434" height="341"/>
+        <figcaption>The motion model produces many potential locations; from <a href="https://api.semanticscholar.org/CorpusID:2272361" target=_blank>Fox et al.</a></figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/16-405/sensor_model.jpg" alt="" width="466" height="341"/>
+        <figcaption>The sensor model predicts how likely a scan is for a given location</figcaption>
+    </figure>
+    </div>
+            
+    </div>    
+        
+    <footer>
+        <p>
+        <a href="mailto:trejohst@mit.edu">Contact</a>
+        <span><a href="#top">To the top ↑</a></span>
+        </p>
+    </footer>
+
+</body>
+
+</html>
