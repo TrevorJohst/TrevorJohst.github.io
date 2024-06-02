@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+            <li><a href="../gallery.html">Gallery</a></li>
+            <li><a href="../index.html">Home</a></li>
+        </ul>
+
+        <h1 id="top">MASLAB</h1>
+    </header> 
+
+    <div class="inner">
+
+    <div class="toc">
+        <details>
+            <summary><span>Sections</span></summary>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#driving">Driving Towards Blocks</a></li>
+                <li><a href="#chassis">Chassis CAD</a></li>
+                <li><a href="#bringing">Bringing it all Together</a></li>
+                <li><a href="#competition">Competition</a></li>
+            </ul>
+        </details>
+    </div>
+        
+    <h5 id="overview">Overview</h5>
+    <p>
+    MASLAB is a yearly competition where teams build an autonomous robot from scratch to accomplish some task. The challenge for our year was to stack blocks in towers of uniform color. You would get 2ⁿ points for a stack, or 1 point for every block that stays on your robot at the end. After a lot of design and debugging, we ended up coming in second place.
+    </p>
+
+    <p>
+    Every team was given a starter kit to build a simple robot capable of driving, then set free to design from there. I primarily worked on the software for our robot, but also helped out with CAD, and did some wiring here and there. The brain of our robot was an Intel NUC, a Teensy 4.1 was used to interface with servos/sensors, and all of the code communicated through ROS2.
+    </p>
+    
+    <h5 id="driving">Driving Towards Blocks</h5>
+    <p>
+    Before we could even think about picking up or stacking blocks, we had to be able to drive to them. Using a desktop webcam and OpenCV, the image is segmented based on HSV (hue, saturation, value) and the nearest block is reported to the rest of the network. To avoid false detections, anything located above the blue border of the arena is discarded. To convert our camera pixel measurement into a real world distance estimate, a homography transform is executed between the ground and camera plane.
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Maslab/image.jpg" alt="" width="445" height="319" class="rounded-image"/>
+        <figcaption>Two blocks being masked with OpenCV</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Maslab/Homography-transl-bold-1-1024x627.jpg" alt="" width="521" height="319"/>
+        <figcaption>A homography transform maps the camera plane to a ground plane; from <a href="https://commons.wikimedia.org/wiki/File:Homography-transl.svg" target="_blank">Appoose</a> (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>)</figcaption>
+    </figure>
+    </div>
+    
+    <p>
+    Once we know where the block is in relation to our robot, we just have to drive to it. To make sure our robot drives in a straight line, encoder data is used with a PID loop and inverse kinematics so we are able to command robot velocity rather than motor PWM. Using the distance information from the homography matrix, we are able to solve for our angle to the block and use that for proportional control on steering. Initial tests struggled because our motors were very low torque and required almost full speed to overcome friction. This was going to be fixed through a gear ratio, but I happened to find some stronger motors that were being recycled and we ended up switching to those for the final product.
+    </p>
+
+    <div class="images">
+<figure>
+        <img class="rounded-image" src="../Images/Sub/Maslab/Sx3AlLn-Imgur.gif" alt="" width="600" height="337" />
+        <figcaption style="text-align: center;">Our original kitbot autonomously driving towards a block</figcaption>
+</figure>
+    </div>
+    
+    <h5 id="chassis">Chassis CAD</h5>
+    <p>
+    While other members of the team worked on prototyping and testing our block stacking mechanism, I worked on a new chassis design to bring it all together. This was a relatively simple process and just involved some design in Onshape and checking with team members to make sure their parts would all mount in the correct locations. Once the chassis was finalized we were able to laser cut it and begin assembling our final robot for integrated testing.
+    </p>
+
+    <div class="images">
+        <figure style="margin-right: 20px;">
+        <img src="../Images/Sub/Maslab/exploded.gif" alt="" width="686" height="450"/>
+        <figcaption style="text-align: center;">An early exploded view of the chassis</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Maslab/Quang_Jr_1.png" alt="" width="488" height="450"/>
+        <figcaption style="text-align: center;">The final CAD with most subsystems added</figcaption>
+    </figure>
+    </div>
+    
+    <h5 id="bringing">Bringing it all Together</h5>
+    <p>
+    After each component was assembled, we combined them to finally test everything in conjunction. Some simple actions were created for things like cycling in a new block and opening or closing the door. The mechanism works by capturing a block in our tower funnel, skewering it with a linear actuator, and finally lifting it with a rack and pinion elevator. That cycle can then be repeated to keep stacking blocks from the bottom up.
+    </p>
+
+    <div class="images">
+        <figure style="margin-right: 80px;">
+        <img src="../Images/Sub/Maslab/YWf6J6R-Imgur-ezgif.com-resize.gif" alt="" width="374" height="450" class="rounded-image"/>
+        <figcaption style="text-align: center;">Testing the door</figcaption>
+    </figure>
+    <figure>
+        <img src="../Images/Sub/Maslab/rn_image_picker_lib_temp_cb5a4e73-02a2-4050-9074-358a8139dfed.jpg" alt="" width="338" height="450" class="rounded-image" />
+        <figcaption style="text-align: center;">Two blocks cycled</figcaption>
+    </figure>
+    </div>
+    
+    <p>
+    In order for the robot to be able to stack blocks entirely on its own, we then had to implement a state machine. While this should have been rather simple given most of the difficult work was done, we were not aware that ROS2 had its own sleep statements. Because of this we spent an entire all-nighter trying to make our state machine work, all the while our sleep statements were causing horrible latency. When we finally realized this, it was less than an hour before competition and we had to scramble to get it functioning. In the end this fault in our state machine was the biggest drawback on our robot, but it still operated well enough to compete. 
+    </p>
+    
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Maslab/statemachine.png" alt="" width="880" height="496" />
+        <figcaption style="text-align: center;">A simplified version of the designed state machine</figcaption>
+    </figure>
+    </div>
+    
+    <h5 id="competition">Competition</h5>
+    <p>
+    With our state machine fully ready to go (it was not, we were still updating it in between matches), competition day was upon us. Our long and arduous journey finally paid off and we came in second place. Below are some of the highlights from our rounds.
+    </p>
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Maslab/capture1.gif" alt="" width="692" height="386" class="rounded-image" />
+        <figcaption style="text-align: center;">Our first block captured</figcaption>
+    </figure>
+    </div>  
+
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Maslab/capture2.gif" alt="" width="692" height="386" class="rounded-image" />
+        <figcaption style="text-align: center;">Two blocks stacked, with only slight damage to the arena</figcaption>
+    </figure>
+    </div>
+    
+    <div class="images">
+    <figure>
+        <img src="../Images/Sub/Maslab/capture3.gif" alt="" width="692" height="386" class="rounded-image" />
+        <figcaption style="text-align: center;">Knocking over a tower with the door (completely intentional)</figcaption>
+    </figure>
+    </div>
+    
+    <p>
+    The full competition was quite long, but if you wish to watch it you can do so below. We had one round in the first half and the remaining rounds took place in the second half. Awards were given out at the very end. 
+    </p>
+
+    <div class="images">
+        <iframe class="rounded-image" width="640" height="360" src="https://www.youtube.com/embed/9CTPtx0NqPs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>            
+    </div>
+
+    </div>    
+        
+    <footer>
+        <p>
+        <a href="mailto:trejohst@mit.edu">Contact</a>
+        <span><a href="#top">To the top ↑</a></span>
+        </p>
+    </footer>
+
+</body>
+
+</html>
