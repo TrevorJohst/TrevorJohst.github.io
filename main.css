@@ -10,7 +10,7 @@ img {
 
 /* Main page */
 body {
-    background-color: #1e2341;
+    background-color: #222842;
     background-image: url("Images/Index/back.png");
     background-size: cover;
     color: white;
@@ -20,7 +20,7 @@ body {
 }
 
 .inner {
-    background-color: #1e2341;
+    background-color: #222842;
     padding: 8rem 10%;
 }
 
